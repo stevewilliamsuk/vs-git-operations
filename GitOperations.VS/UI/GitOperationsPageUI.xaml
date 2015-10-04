@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="GitOperations.VS.UI.GitOperationsPageUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:GitOperations.VS.UI"
+             xmlns:teamExplorer="clr-namespace:Microsoft.TeamFoundation.Controls.WPF.TeamExplorer;assembly=Microsoft.TeamFoundation.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="6">
+        <TextBlock TextWrapping="WrapWithOverflow">Fetches all remote branches, prunes any dead local branches</TextBlock>
+        <Button x:Uid="fetchPruneButton" VerticalAlignment="Center" Margin="0,0,0,10" Padding="6,2,6,2" MinWidth="75"
+                MinHeight="23" Command="{Binding Path=PullAndPruneCommand}">
+            Pull all and Prune
+        </Button>
+    </StackPanel>
+</UserControl>
