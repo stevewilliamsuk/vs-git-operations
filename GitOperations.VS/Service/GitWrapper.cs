@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using LibGit2Sharp;
 
@@ -37,9 +39,20 @@ namespace GitOperations.VS.Service
         public event CommandOutputReceivedEventHandler CommandOutputDataReceived;
         public event CommandErrorReceivedEventHandler CommandErrorDataReceived;
 
-        public GitCommandResult PullAndPrune()
+        public GitCommandResult Pull(IEnumerable<string> options = null)
         {
-            var gitArguments = "pull --all --prune";
+            if (options == null)
+            {
+                options = Enumerable.Empty<string>();
+            }
+            options = options.Select(x => " --" + x);
+            var gitArguments = "pull" + string.Join(string.Empty, options);
+            return RunGitCommandExternal(gitArguments);
+        }
+
+        public GitCommandResult Push()
+        {
+            var gitArguments = "push";
             return RunGitCommandExternal(gitArguments);
         }
 

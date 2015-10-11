@@ -7,11 +7,30 @@
              xmlns:teamExplorer="clr-namespace:Microsoft.TeamFoundation.Controls.WPF.TeamExplorer;assembly=Microsoft.TeamFoundation.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="6">
-        <TextBlock TextWrapping="WrapWithOverflow">Fetches all remote branches, prunes any dead local branches</TextBlock>
-        <Button x:Uid="fetchPruneButton" VerticalAlignment="Center" Margin="0,0,0,10" Padding="6,2,6,2" MinWidth="75"
-                MinHeight="23" Command="{Binding Path=PullAndPruneCommand}">
-            Pull all and Prune
-        </Button>
-    </StackPanel>
+    <Grid>
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="6">
+                <TextBlock TextWrapping="WrapWithOverflow">Pull and Push all branches</TextBlock>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Uid="pruneOption" IsChecked="{Binding Path=PruneOption}" Grid.Row="0" Grid.Column="0" />
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Row="0" Grid.Column="1">Prune branches</TextBlock>
+                </Grid>
+                <Button x:Uid="pullButton" VerticalAlignment="Center" Margin="0,0,0,10" Padding="6,2,6,2" MinWidth="75"
+                    MinHeight="23" Command="{Binding Path=PullCommand}">
+                    Pull
+                </Button>
+                <Button x:Uid="pushButton" VerticalAlignment="Center" Margin="0,0,0,10" Padding="6,2,6,2" MinWidth="75"
+                    MinHeight="23" Command="{Binding Path=PushCommand}">
+                    Push
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>

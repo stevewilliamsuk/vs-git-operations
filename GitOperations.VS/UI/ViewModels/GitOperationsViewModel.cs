@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 using Microsoft.TeamFoundation.MVVM;
 
 namespace GitOperations.VS.UI.ViewModels
@@ -7,16 +8,36 @@ namespace GitOperations.VS.UI.ViewModels
     {
         public GitOperationsViewModel()
         {
-            PullAndPruneCommand = new RelayCommand(x => PullAndPrune());
+            PullCommand = new RelayCommand(x => GitPull());
+            PushCommand = new RelayCommand(x => GitPush());
         }
 
-        public ICommand PullAndPruneCommand { get; private set; }
+        public ICommand PullCommand { get; private set; }
+        public ICommand PushCommand { get; private set; } 
 
-        public void PullAndPrune()
+        public void GitPull()
         {
             var wrapper = new VsGitWrapper(GitOperationsPage.ActiveRepoPath, GitOperationsPage.OutputWindow);
-            wrapper.PullAndPrune();
+            List<string> options = new List<string>()
+            {
+                {"all"}
+            };
+
+            if (PruneOption)
+            {
+                options.Add("prune");
+            }
+
+            wrapper.Pull(options);
         }
+
+        public void GitPush()
+        {
+            var wrapper = new VsGitWrapper(GitOperationsPage.ActiveRepoPath, GitOperationsPage.OutputWindow);
+            wrapper.Push();
+        }
+
+        public bool PruneOption { get; set; }
 
         public void Update()
         {
